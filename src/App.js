@@ -5,9 +5,7 @@ import './App.css';
 const [data,setData]=useState([])
 const [search,setSearch]=useState("react")
 const [order,setOrder]=useState("asc")
-
-
-
+const [page,setPage]=useState(1)
 
 useEffect(()=>{
   loadingData();
@@ -15,26 +13,33 @@ useEffect(()=>{
 
 useEffect(()=>{
   loadingData();
-},[order])
+},[order,page])
 
-const loadingData=async ()=>{
- return await axios.get(`https://api.github.com/search/repositories?q=${search}&sort=${order}`).then((res)=>setData(res.data)).catch((err)=>console.log(err))
+const loadingData= ()=>{
+    axios.get(`https://api.github.com/search/repositories?q=${search}&order=${order}&page=${page}&per_page=10`).then((res)=>setData(res.data)).catch((err)=>console.log(err))
 }
 
 const submitHanddle=()=>{
   loadingData();
-  //console.log(order);
 }
 
 
 const handleChange = (e) => {
   setOrder(e.target.value);
+  console.log(order);
 };
 
 
+const increase = () => {
+  setPage(page+1);
+  console.log(page);
+};
 
+const descrease = () => {
+  setPage(page-1);
+};
 
- console.log(data);
+console.log(page);
   return (
      <>
      <div>
@@ -49,7 +54,8 @@ const handleChange = (e) => {
     <div>
       {
         <table>
-            <tr>
+        <thead>
+        <tr>
               <td>name</td>
               <td>language</td>
               <td>size</td>
@@ -57,6 +63,8 @@ const handleChange = (e) => {
               <td>watchers count</td>
               <td>description</td>
             </tr>
+        </thead>
+            
             <tbody>
               {
               data?.items?.map((res)=>{
@@ -76,11 +84,12 @@ const handleChange = (e) => {
               }
             </tbody>
           </table>
-        
-       
-      
-      
       }
+      <div>
+        <button value={page} onClick={descrease}>prev</button>
+        <p>{page}</p>
+        <button value={page} onClick={increase}>next</button>
+      </div>
     </div>
      </>
   );
