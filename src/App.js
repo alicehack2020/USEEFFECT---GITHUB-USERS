@@ -32,7 +32,7 @@ const handleChange = (e) => {
 
 const increase = () => {
   setPage(page+1);
-  console.log(page);
+  
 };
 
 const descrease = () => {
@@ -85,8 +85,8 @@ console.log(page);
             </tbody>
           </table>
       }
-      <div>
-        <button value={page} onClick={descrease}>prev</button>
+      <div className='flex'>
+        <button disabled={page<=1} value={page} onClick={descrease}>prev</button>
         <p>{page}</p>
         <button value={page} onClick={increase}>next</button>
       </div>

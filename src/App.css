@@ -4,3 +4,24 @@
 thead{
   background-color: aquamarine;
 }
+.flex{
+  display: flex;
+}
+input{
+  padding: 10px;
+  font-size: large;
+  margin-left: 10px;
+}
+button{
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  background-color: rgb(10, 9, 80);
+  border-radius: 10px;
+  color: white;
+}
+
+select{
+  padding: 10px;
+  font-size: large;
+}
